@@ -1,3 +1,6 @@
+from math import log2, log10, log1p, log
+
+
 LOWER_CASE = (
     '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=',
     'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\',
@@ -38,75 +41,75 @@ ADJACENCY_MAP = {
     '=': ('=', '\\', ']', '[', '-',
           '+', '|', '}', '{', '_'),
     
-    'q': ('q', '`', '1', '2', 'w', 's', 'a',
-          'Q', '~', '!', '@', 'W', 'S', 'A'),
-    'w': ('w', '1', '2', '3', 'e', 'd', 's', 'a', 'q',
-          'W', '!', '@', '#', 'E', 'D', 'S', 'A', 'Q'),
-    'e': ('e', '2', '3', '4', 'r', 'f', 'd', 's', 'w',
-          'E', '@', '#', '$', 'R', 'F', 'D', 'S', 'W'),
-    'r': ('r', '3', '4', '5', 't', 'g', 'f', 'd', 'e',
-          'R', '#', '$', '%', 'T', 'G', 'F', 'D', 'E'),
-    't': ('t', '4', '5', '6', 'y', 'h', 'g', 'f', 'r',
-          'T', '$', '%', '^', 'Y', 'H', 'G', 'F', 'R'),
-    'y': ('y', '5', '6', '7', 'u', 'j', 'h', 'g', 't',
-          'Y', '%', '^', '&', 'U', 'J', 'H', 'G', 'T'),
-    'u': ('u', '6', '7', '8', 'i', 'k', 'j', 'h', 'y',
-          'U', '^', '&', '*', 'I', 'K', 'J', 'H', 'Y'),
-    'i': ('i', '7', '8', '9', 'o', 'l', 'k', 'j', 'u',
-          'I', '&', '*', '(', 'O', 'L', 'K', 'J', 'U'),
-    'o': ('o', '8', '9', '0', 'p', ';', 'l', 'k', 'i',
-          'O', '*', '(', ')', 'P', ':', 'L', 'K', 'I'),
-    'p': ('p', '9', '0', '-', '[', "'", ';', 'l', 'o',
-          'P', '(', ')', '_', '{', '"', ':', 'L', 'O'),
-    '[': ('[', '0', '-', '=', ']', "'", ';', 'p',
-          '{', ')', '_', '+', '}', '"', ':', 'P'),
-    ']': (']', '-', '=', '\\', "'", '[',
-          '}', '_', '+', '|', '"', '{'),
-    '\\': ('\\', '=', ']',
-           '|', '+', '}'),
-    'a': ('a', 'q', 'w', 's', 'x', 'z',
-          'A', 'Q', 'W', 'S', 'X', 'Z'),
-    's': ('s', 'q', 'w', 'e', 'd', 'c', 'x', 'z', 'a',
-          'S', 'Q', 'W', 'E', 'D', 'C', 'X', 'Z', 'A'),
-    'd': ('d', 'w', 'e', 'r', 'f', 'v', 'c', 'x', 's',
-          'D', 'W', 'E', 'R', 'F', 'V', 'C', 'X', 'S'),
-    'f': ('f', 'e', 'r', 't', 'g', 'b', 'v', 'c', 'd',
-          'F', 'E', 'R', 'T', 'G', 'B', 'V', 'C', 'D'),
-    'g': ('g', 'r', 't', 'y', 'h', 'n', 'b', 'v', 'f',
-          'G', 'R', 'T', 'Y', 'H', 'N', 'B', 'V', 'F'),
-    'h': ('h', 't', 'y', 'u', 'j', 'm', 'n', 'b', 'g',
-          'H', 'T', 'Y', 'U', 'J', 'M', 'N', 'B', 'G'),
-    'j': ('j', 'y', 'u', 'i', 'k', ',', 'm', 'n', 'h',
-          'J', 'Y', 'U', 'I', 'K', '<', 'M', 'N', 'H'),
-    'k': ('k', 'u', 'i', 'o', 'l', '.', ',', 'm', 'j',
-          'K', 'U', 'I', 'O', 'L', '>', '<', 'M', 'J'),
-    'l': ('l', 'i', 'o', 'p', ';', '/', '.', ',', 'k',
-          'L', 'I', 'O', 'P', ':', '?', '>', '<', 'K'),
-    ';': (';', 'o', 'p', '[', "'", '/', '.', 'l',
-          ':', 'O', 'P', '{', '"', '?', '>', 'L'),
-    "'": ("'", 'p', '[', ']', '/', ';',
-          '"', 'P', '{', '}', '?', ':'),
-    
+    'q': ('q', '1', '2', 'w', 'a',
+          'Q', '!', '@', 'W', 'A'),
+    'w': ('w', '2', '3', 'e', 's', 'a', 'q',
+          'W', '@', '#', 'E', 'S', 'A', 'Q'),
+    'e': ('e', '3', '4', 'r', 'd', 's', 'w',
+          'E', '#', '$', 'R', 'D', 'S', 'W'),
+    'r': ('r', '4', '5', 't', 'f', 'd', 'e',
+          'R', '$', '%', 'T', 'F', 'D', 'E'),
+    't': ('t', '5', '6', 'y', 'g', 'f', 'r',
+          'T', '%', '^', 'Y', 'G', 'F', 'R'),
+    'y': ('y', '6', '7', 'u', 'h', 'g', 't',
+          'Y', '^', '&', 'U', 'H', 'G', 'T'),
+    'u': ('u', '7', '8', 'i', 'j', 'h', 'y',
+          'U', '&', '*', 'I', 'J', 'H', 'Y'),
+    'i': ('i', '8', '9', 'o', 'k', 'j', 'u',
+          'I', '*', '(', 'O', 'K', 'J', 'U'),
+    'o': ('o', '9', '0', 'p', 'l', 'k', 'i',
+          'O', '(', ')', 'P', 'L', 'K', 'I'),
+    'p': ('p', '0', '-', '[', ';', 'l', 'o',
+          'P', ')', '_', '{', ':', 'L', 'O'),
+    '[': ('[', '-', '=', ']', "'", ';', 'p',
+          '{', '_', '+', '}', '"', ':', 'P'),
+    ']': (']', '=',     '\\', "'", '[',
+          '}', '+',      '|', '"', '{'),
+    '\\': ('\\',                   ']',
+           '|',                    '}'),
+    'a': ('a', 'q', 'w', 's', 'z',           'b',
+          'A', 'Q', 'W', 'S', 'Z',           'B'),
+    's': ('s', 'w', 'e', 'd', 'x', 'z', 'a',
+          'S', 'W', 'E', 'D', 'X', 'Z', 'A'),
+    'd': ('d', 'e', 'r', 'f', 'c', 'x', 's',
+          'D', 'E', 'R', 'F', 'C', 'X', 'S'),
+    'f': ('f', 'r', 't', 'g', 'v', 'c', 'd', 'e',
+          'F', 'R', 'T', 'G', 'V', 'C', 'D', 'E'),
+    'g': ('g', 't', 'y', 'h', 'b', 'v', 'f',
+          'G', 'T', 'Y', 'H', 'B', 'V', 'F'),
+    'h': ('h', 'y', 'u', 'j', 'n', 'b', 'g',
+          'H', 'Y', 'U', 'J', 'N', 'B', 'G'),
+    'j': ('j', 'u', 'i', 'k', 'm', 'n', 'h',
+          'J', 'U', 'I', 'K', 'M', 'N', 'H'),
+    'k': ('k', 'i', 'o', 'l', ',', 'm', 'j',
+          'K', 'I', 'O', 'L', '<', 'M', 'J'),
+    'l': ('l', 'o', 'p', ';', '.', ',', 'k',
+          'L', 'O', 'P', ':', '>', '<', 'K'),
+    ';': (';', 'p', '[', "'", '.', 'l',
+          ':', 'P', '{', '"', '>', 'L'),
+    "'": ("'", '[', ']', '/',
+          '"', '{', '}', '?'),
+
     'z': ('z', 'a', 's', 'x',
           'Z', 'A', 'S', 'X'),
-    'x': ('x', 'a', 's', 'd', 'c', 'z',
-          'X', 'A', 'S', 'D', 'C', 'Z'),
-    'c': ('c', 's', 'd', 'f', 'v', 'x',
-          'C', 'S', 'D', 'F', 'V', 'X'),
-    'v': ('v', 'd', 'f', 'g', 'b', 'c',
-          'V', 'D', 'F', 'G', 'B', 'C'),
-    'b': ('b', 'f', 'g', 'h', 'n', 'v',
-          'B', 'F', 'G', 'H', 'N', 'V'),
-    'n': ('n', 'g', 'h', 'j', 'm', 'b',
-          'N', 'G', 'H', 'J', 'M', 'B'),
-    'm': ('m', 'h', 'j', 'k', ',', 'n',
-          'M', 'H', 'J', 'K', '<', 'N'),
-    ',': (',', 'j', 'k', 'l', '.', 'm',
-          '<', 'J', 'K', 'L', '>', 'M'),
-    '.': ('.', 'k', 'l', ';', '/', ',',
-          '>', 'K', 'L', ':', '?', '<'),
-    '/': ('/', 'l', ';', "'", '.',
-          '?', 'L', ':', '"', '>'),
+    'x': ('x', 's', 'd', 'c', 'z',
+          'X', 'S', 'D', 'C', 'Z'),
+    'c': ('c', 'd', 'f', 'v', 'x',           'b',
+          'C', 'D', 'F', 'V', 'X',           'B'),
+    'v': ('v', 'f', 'g', 'b', 'c',
+          'V', 'F', 'G', 'B', 'C'),
+    'b': ('b', 'g', 'h', 'n', 'v',           'a', 'c',
+          'B', 'G', 'H', 'N', 'V',           'A', 'C'),
+    'n': ('n', 'h', 'j', 'm', 'b',
+          'N', 'H', 'J', 'M', 'B'),
+    'm': ('m', 'j', 'k', ',', 'n',
+          'M', 'J', 'K', '<', 'N'),
+    ',': (',', 'k', 'l', '.', 'm',
+          '<', 'K', 'L', '>', 'M'),
+    '.': ('.', 'l', ';', '/', ',',
+          '>', 'L', ':', '?', '<'),
+    '/': ('/', ';', "'",     '.',
+          '?', ':', '"',     '>'),
 
     ' ': (' ', 'x', 'c', 'v', 'b', 'n', 'm', ',',
                'X', 'C', 'V', 'B', 'N', 'M', '<'),
@@ -121,27 +124,64 @@ class QwertyValidator:
     lower_case = LOWER_CASE
     upper_case = UPPER_CASE
 
+    adjacency_level_1 = 0.0625
+    adjacency_level_2 = 0.25
+    adjacency_level_3 = 1
+    adjacency_level_4 = 2
+
+    lower_case_to_lower = 0.875
+    upper_case_to_upper = 1
+    upper_case_to_lower = 1.125
+    lower_case_to_upper = 1.25
+
     def compare_adjacency(self, previous, next_):
         if next_ in self.adjacency_map[previous]:
-            return -0.5
-        return 0.5
+            return self.adjacency_level_1
+        for i in self.adjacency_map[previous]:
+            if next_ in self.adjacency_map[i]:
+                return self.adjacency_level_2
+        for i in self.adjacency_map[previous]:
+            for j in self.adjacency_map[i]:
+                if next_ in self.adjacency_map[j]:
+                    return self.adjacency_level_3
+        return self.adjacency_level_4
 
     def compare_cases(self, previous, next_):
         if previous in self.lower_case:
             if next_ in self.upper_case:
-                return 0.5
+                return self.lower_case_to_upper
             elif next_ in self.lower_case:
-                return -0.5
+                return self.lower_case_to_lower
         elif previous in self.upper_case:
             if next_ in self.lower_case:
-                return 0.25
+                return self.upper_case_to_lower
             elif next_ in self.upper_case:
-                return -0.25
+                return self.upper_case_to_upper
         raise ValueError
 
+    def compare_families(self, previous: str, next_: str):
+        if previous.isalpha():
+            if next_.isalpha():
+                return 0.875
+            return 1.125
+        elif previous.isdecimal():
+            if next_.isdecimal():
+                return 0.75
+            return 1
+        else:
+            if next_.isalpha():
+                return 1.25
+            if next_.isdecimal():
+                return 1.25
+            return 0.875
+
     def validate(self, secret: str):
-        complexity_count = len(secret)
+        complexity_count = 0
         for previous, next_ in zip(secret[0:-1], secret[1:]):
-            complexity_count += self.compare_adjacency(previous, next_)
-            complexity_count += self.compare_cases(previous, next_)
+            complexity_count += (
+                self.compare_adjacency(previous, next_)
+                * self.compare_cases(previous, next_)
+                * self.compare_families(previous, next_)
+                * len(set(secret)) / len(secret)
+            )
         return complexity_count
