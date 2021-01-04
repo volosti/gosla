@@ -14,12 +14,12 @@ def gen_alphabet_map(tuple_):
     return dict_
 
 
-def completion_layout_map(ALPHABET_MAP, lower_case_map):
-    for key, set_ in ALPHABET_MAP.items():
-        values = set_.copy()
-        for value in values:
-            ALPHABET_MAP[key].add(lower_case_map[value])
-    keys = tuple(ALPHABET_MAP.keys())
+def completion_layout_map(base_qwerty_map, lower_case_map):
+    for key, values in base_qwerty_map.items():
+        values_ = values.copy()
+        for value in values_:
+            base_qwerty_map[key].add(lower_case_map[value])
+    keys = tuple(base_qwerty_map.keys())
     for key in keys:
-        ALPHABET_MAP[lower_case_map[key]] = ALPHABET_MAP[key]
-    return ALPHABET_MAP
+        base_qwerty_map[lower_case_map[key]] = base_qwerty_map[key]
+    return base_qwerty_map

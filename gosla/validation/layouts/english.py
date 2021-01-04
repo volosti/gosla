@@ -1,4 +1,4 @@
-from gosla.validators.utils import completion_layout_map, gen_alphabet_map, merge_maps
+from gosla.validation.utils import completion_layout_map, gen_alphabet_map, merge_adjacency_maps
 
 
 ALPHABET_MAP = gen_alphabet_map([
@@ -16,7 +16,8 @@ LOWER_CASE_MAP = {
     'n': 'N', 'm': 'M', ',': '<', '.': '>', '/': '?', ' ': ' ',
 }
 UPPER_CASE_MAP = {value: key for key, value in LOWER_CASE_MAP.items()}
-QWERTY_MAP = completion_layout_map({
+
+BASE_QWERTY_MAP = {
     '`': {'1', 'q'},
     '1': {'2', 'w', 'q', '`'},
     '2': {'3', 'e', 'w', 'q', '1'},
@@ -67,4 +68,6 @@ QWERTY_MAP = completion_layout_map({
     '.': {'l', ';', '/', ','},
     '/': {';', "'", '.'},
     ' ': {'x', 'c', 'v', 'b', 'n', 'm', ','},
-}, LOWER_CASE_MAP)
+}
+
+QWERTY_MAP = completion_layout_map(BASE_QWERTY_MAP, LOWER_CASE_MAP)

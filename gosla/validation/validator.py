@@ -1,5 +1,6 @@
 class QwertyValidator:
     adjacence_map = {}
+    layouts = []  # English, Russian
 
     adjacency_level_1 = 0.0625
     adjacency_level_2 = 0.25

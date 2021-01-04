@@ -1,4 +1,4 @@
-from gosla.validators.utils import completion_layout_map, gen_alphabet_map
+from gosla.validation.utils import completion_layout_map, gen_alphabet_map, merge_adjacency_maps
 
 
 ALPHABET_MAP = gen_alphabet_map([
@@ -17,7 +17,7 @@ LOWER_CASE_MAP = {
     'т': 'Т', 'ь': 'Ь', 'б': 'Б', 'ю': 'Ю', '.': ',', ' ': ' ',
 }
 UPPER_CASE_MAP = {value: key for key, value in LOWER_CASE_MAP.items()}
-QWERTY_MAP = completion_layout_map({
+BASE_QWERTY_MAP = {
     'ё': {'1', 'й'},
     '1': {'2', 'ц', 'й', 'ё'},
     '2': {'3', 'у', 'ц', 'й', '1'},
@@ -68,12 +68,13 @@ QWERTY_MAP = completion_layout_map({
     'ю': {'д', 'ж', '.', 'б'},
     '.': {'ж', 'э', 'ю'},
     ' ': {'ч', 'с', 'м', 'и', 'т', 'ь', 'б'},
-}, LOWER_CASE_MAP)
+}
+QWERTY_MAP = completion_layout_map(BASE_QWERTY_MAP, LOWER_CASE_MAP)
 
 QWERTY_RU_EN_MAP = {
     'ё': '`', 'й': 'q', 'ц': 'w', 'у': 'e', 'к': 'r', 'е': 't', 'н': 'y',
     'г': 'u', 'ш': 'i', 'щ': 'o', 'з': 'p', 'х': '[', 'ъ': ']', 'ф': 'a',
-    'ы': 's', 'в': 'd', 'f': 'А', 'п': 'g', 'р': 'h', 'о': 'j', 'л': 'k',
+    'ы': 's', 'в': 'd', 'а': 'f', 'п': 'g', 'р': 'h', 'о': 'j', 'л': 'k',
     'д': 'l', 'ж': ';', 'э': "'", 'я': 'z', 'ч': 'x', 'с': 'c', 'м': 'v',
     'и': 'b', 'т': 'n', 'ь': 'm', 'б': ',', 'ю': '.',
 }
