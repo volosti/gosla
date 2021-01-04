@@ -1,0 +1,3 @@
+WORD_LIST = (
+    'password',
+)
