@@ -1,7 +1,11 @@
-from passlib_utils.validators.urils import gen_alphabet_map, merge_maps
+from passlib_utils.validators.utils import completion_layout_map, gen_alphabet_map, merge_maps
 
 
-LOWER_CASE = {
+ALPHABET_MAP = gen_alphabet_map([
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+])
+LOWER_CASE_MAP = {
     '`': '~', '1': '!', '2': '@', '3': '#', '4': '$', '5': '%',
     '6': '^', '7': '&', '8': '*', '9': '(', '0': ')', '-': '_',
     '=': '+', 'q': 'Q', 'w': 'W', 'e': 'E', 'r': 'R', 't': 'T',
@@ -9,11 +13,10 @@ LOWER_CASE = {
     ']': '}', '\\': '|', 'a': 'A', 's': 'S', 'd': 'D', 'f': 'F',
     'g': 'G', 'h': 'H', 'j': 'J', 'k': 'K', 'l': 'L', ';': ';',
     '\'': '"', 'z': 'Z', 'x': 'X', 'c': 'C', 'v': 'V', 'b': 'B',
-    'n': 'N', 'm': 'M', ',': '<', '.': '>', '/': '?',
+    'n': 'N', 'm': 'M', ',': '<', '.': '>', '/': '?', ' ': ' ',
 }
-UPPER_CASE = {value: key for key, value in LOWER_CASE.items()}
-LAYOUT = {**LOWER_CASE, **UPPER_CASE, **{' ': ' '}}
-ADJACENCY_MAP = {
+UPPER_CASE_MAP = {value: key for key, value in LOWER_CASE_MAP.items()}
+QWERTY_MAP = completion_layout_map({
     '`': {'1', 'q'},
     '1': {'2', 'w', 'q', '`'},
     '2': {'3', 'e', 'w', 'q', '1'},
@@ -64,4 +67,4 @@ ADJACENCY_MAP = {
     '.': {'l', ';', '/', ','},
     '/': {';', "'", '.'},
     ' ': {'x', 'c', 'v', 'b', 'n', 'm', ','},
-}
+}, LOWER_CASE_MAP)
