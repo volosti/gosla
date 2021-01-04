@@ -1,4 +1,4 @@
-from passlib_utils import PasswordHelper
+from gosla import PasswordHelper
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:

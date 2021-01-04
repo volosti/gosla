@@ -1,5 +1,5 @@
 from passlib.context import CryptContext
-from passlib_utils.schemas import argon2
+from gosla.schemas import argon2
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:

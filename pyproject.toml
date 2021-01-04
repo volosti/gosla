@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "passlib-utils"
+name = "gosla"
 version = "0.1.0"
-description = """Small extension for Passlib"""
+description = ""
 
 authors = ["Ruslan Ilyasovich Gilfanov <ri.gilfanov@yandex.ru>"]
 classifiers = [

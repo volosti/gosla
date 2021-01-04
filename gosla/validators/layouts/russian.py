@@ -1,4 +1,4 @@
-from passlib_utils.validators.utils import completion_layout_map, gen_alphabet_map
+from gosla.validators.utils import completion_layout_map, gen_alphabet_map
 
 
 ALPHABET_MAP = gen_alphabet_map([
