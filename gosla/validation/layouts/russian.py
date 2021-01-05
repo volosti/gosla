@@ -1,5 +1,6 @@
-from gosla.validation.utils import completion_layout_map, gen_alphabet_map, merge_adjacency_maps
-
+from gosla.validation.layouts import english
+from gosla.validation.utils import completion_layout_map, gen_alphabet_map, merge_layouts_by_keys, \
+    merge_layouts_by_proxy
 
 ALPHABET_MAP = gen_alphabet_map([
     'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й',
@@ -69,12 +70,23 @@ BASE_QWERTY_MAP = {
     '.': {'ж', 'э', 'ю'},
     ' ': {'ч', 'с', 'м', 'и', 'т', 'ь', 'б'},
 }
-QWERTY_MAP = completion_layout_map(BASE_QWERTY_MAP, LOWER_CASE_MAP)
 
-QWERTY_RU_EN_MAP = {
+LOWER_QWERTY_RU_EN_MAP = {
     'ё': '`', 'й': 'q', 'ц': 'w', 'у': 'e', 'к': 'r', 'е': 't', 'н': 'y',
     'г': 'u', 'ш': 'i', 'щ': 'o', 'з': 'p', 'х': '[', 'ъ': ']', 'ф': 'a',
     'ы': 's', 'в': 'd', 'а': 'f', 'п': 'g', 'р': 'h', 'о': 'j', 'л': 'k',
     'д': 'l', 'ж': ';', 'э': "'", 'я': 'z', 'ч': 'x', 'с': 'c', 'м': 'v',
     'и': 'b', 'т': 'n', 'ь': 'm', 'б': ',', 'ю': '.',
 }
+
+UPPER_QWERTY_RU_EN_MAP = {LOWER_CASE_MAP[key]: english.LOWER_CASE_MAP[value]
+                          for key, value in LOWER_QWERTY_RU_EN_MAP.items()}
+QWERTY_RU_EN_MAP = {**LOWER_QWERTY_RU_EN_MAP, **UPPER_QWERTY_RU_EN_MAP}
+
+QWERTY_MAP = merge_layouts_by_proxy(
+    origin=merge_layouts_by_keys(
+        first=english.QWERTY_MAP,
+        second=completion_layout_map(
+            base_qwerty_map=BASE_QWERTY_MAP,
+            lower_case_map=LOWER_CASE_MAP),
+    ), proxy=QWERTY_RU_EN_MAP)

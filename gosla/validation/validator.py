@@ -1,6 +1,11 @@
-class QwertyValidator:
-    adjacence_map = {}
-    layouts = []  # English, Russian
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Dict, Set
+
+
+class ComplexityValidator:
+    adjacency_map: 'Dict[str, Set[str]]'
 
     adjacency_level_1 = 0.0625
     adjacency_level_2 = 0.25
@@ -15,14 +20,14 @@ class QwertyValidator:
     password_max_len = 4096
 
     def compare_adjacency(self, previous, next_):
-        if next_ in self.adjacence_map[previous]:
+        if next_ in self.adjacency_map[previous]:
             return self.adjacency_level_1
-        for i in self.adjacence_map[previous]:
-            if next_ in self.adjacence_map[i]:
+        for i in self.adjacency_map[previous]:
+            if next_ in self.adjacency_map[i]:
                 return self.adjacency_level_2
-        for i in self.adjacence_map[previous]:
-            for j in self.adjacence_map[i]:
-                if next_ in self.adjacence_map[j]:
+        for i in self.adjacency_map[previous]:
+            for j in self.adjacency_map[i]:
+                if next_ in self.adjacency_map[j]:
                     return self.adjacency_level_3
         return self.adjacency_level_4
 

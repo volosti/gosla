@@ -1,4 +1,4 @@
-from gosla.validation.utils import completion_layout_map, gen_alphabet_map, merge_adjacency_maps
+from gosla.validation.utils import completion_layout_map, gen_alphabet_map
 
 
 ALPHABET_MAP = gen_alphabet_map([
