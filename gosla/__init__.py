@@ -1,6 +1,4 @@
-from gosla.helpers import PasswordHelper
-from gosla.mixins import PasswordMixin
-
+from gosla.hashing.helpers import PasswordHelper
 
 __all__ = ('PasswordHelper', 'PasswordMixin', '__version__',)
 __version__ = '0.1.0'

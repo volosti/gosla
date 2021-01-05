@@ -1,10 +1,19 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Dict, Set
+    from typing import Any, Dict, Set, Tuple
 
 
-class ComplexityValidator:
+class BaseValidator:
+    validator_key: str
+
+    def validate(self, secret: str) -> 'Tuple[str, Any]':
+        pass
+
+
+class ComplexityValidator(BaseValidator):
+    validator_key = 'complexity_count'
+
     adjacency_map: 'Dict[str, Set[str]]'
 
     adjacency_level_1 = 0.0625
@@ -71,4 +80,4 @@ class ComplexityValidator:
                 * self.compare_families(previous, next_)
                 * len(set(secret)) / len(secret)
             )
-        return complexity_count
+        return self.validator_key, complexity_count
